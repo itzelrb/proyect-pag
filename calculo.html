@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cálculo Crédito</title>
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#a8f0e6;
+    font-family:Arial, sans-serif;
+}
+
+/* CUADRO */
+.calculo-box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0px 10px 25px rgba(0,0,0,0.2);
+    width:350px;
+    text-align:center;
+}
+
+/* TITULO */
+.calculo-box h2{
+    color:#00a896;
+    margin-bottom:20px;
+}
+
+/* INPUTS */
+.calculo-box input{
+    width:80%;
+    padding:10px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+}
+
+.calculo-box input:focus{
+    border-color:#00a896;
+}
+
+/* BOTONES */
+.calculo-box button{
+    width:80%;
+    padding:12px;
+    background:#00a896;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+    font-size:16px;
+}
+
+.calculo-box button:hover{
+    background:#028090;
+}
+
+/* RESULTADO */
+#resultado, #meses{
+    margin-top:15px;
+    font-size:16px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="calculo-box">
+
+<h2>Calcular Pago Mensual</h2>
+
+<input type="number" id="monto" placeholder="Monto">
+<input type="number" id="plazos" placeholder="Plazos">
+
+<button onclick="calcular()">Calcular</button>
+<button onclick="limpiar()">Limpiar</button>
+
+<div id="resultado">Pago mensual: </div>
+<div id="meses">Meses a pagar: </div>
+
+<button onclick="solicitar()">Solicitar</button>
+
+</div>
+
+<script>
+function calcular(){
+    let monto = parseFloat(document.getElementById("monto").value);
+    let plazos = parseInt(document.getElementById("plazos").value);
+    let a1 = 0.0258620689655172; // interés
+
+    if(monto && plazos){
+        let ra = (a1 * Math.pow(1 + a1, plazos) * monto) / (Math.pow(1 + a1, plazos) - 1);
+        document.getElementById("resultado").innerText = "Pago mensual: $" + Math.round(ra);
+        document.getElementById("meses").innerText = "Meses a pagar: " + plazos;
+    } else {
+        alert("Ingrese monto y plazos");
+    }
+}
+
+function limpiar(){
+    document.getElementById("monto").value = "";
+    document.getElementById("plazos").value = "";
+    document.getElementById("resultado").innerText = "Pago mensual: ";
+    document.getElementById("meses").innerText = "Meses a pagar: ";
+}
+
+function solicitar(){
+    // Redirige al formulario.php
+    window.location.href = "formulario.php";
+}
+</script>
+
+</body>
+</html>
